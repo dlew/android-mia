@@ -1,19 +1,27 @@
 package com.idunnolol.mia;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class SearchFragment extends Fragment {
 
+    private SearchFragmentListener mListener;
+
     private EditText mEditText;
     private Button mButton;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        mListener = (SearchFragmentListener) activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,11 +41,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String text) {
-        if (TextUtils.isEmpty(text)) {
-            Toast.makeText(getActivity(), getString(R.string.error_no_query), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            // TODO: Query for stop #
-        }
+        mListener.onQuery(text);
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    // Listener interfaces
+
+    public interface SearchFragmentListener {
+        public void onQuery(String query);
     }
 }
