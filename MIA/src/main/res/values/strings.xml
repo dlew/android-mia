@@ -3,4 +3,6 @@
 
     <string name="app_name">MIA</string>
 
+    <string name="error_no_query">Please enter quick stop number</string>
+
 </resources>
